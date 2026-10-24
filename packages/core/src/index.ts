@@ -17,6 +17,7 @@ export {
   NotFoundError,
   TooManyAttemptsError,
   UnauthenticatedError,
+  ValidationError,
 } from "./errors";
 export {
   createLoginThrottle,
@@ -40,3 +41,16 @@ export {
   type Project,
   updateProject,
 } from "./projects";
+export { listRevisions, type TranslationRevision } from "./revisions";
+export { putKeys } from "./source-keys";
+export {
+  InvalidTransitionError,
+  type TranslationState,
+} from "./translation-state";
+export {
+  type KeyTranslation,
+  listKeys,
+  reviewTranslation,
+  submitTranslation,
+  type TranslationKey,
+} from "./translations";

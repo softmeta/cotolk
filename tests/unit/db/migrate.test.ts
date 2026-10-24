@@ -13,6 +13,7 @@ import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
 const ALL_MIGRATIONS = [
   "0001_organizations_and_projects",
   "0002_accounts_and_tokens",
+  "0003_keys_and_translations",
 ];
 
 const openDatabases: Kysely<Database>[] = [];

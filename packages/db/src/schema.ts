@@ -57,6 +57,77 @@ export interface UserSessionsTable {
   expiresAt: Date;
 }
 
+export type TranslationStatus =
+  | "missing"
+  | "needs_review"
+  | "approved"
+  | "rejected"
+  | "stale";
+
+export type TranslationOrigin = "human" | "agent" | "tm" | "import";
+
+export type RevisionKind =
+  | "submit"
+  | "suggest"
+  | "approve"
+  | "reject"
+  | "source_changed";
+
+export type ActorKind = "user" | "api_token" | "system";
+
+export type Forms = Record<string, string>;
+
+type JsonForms = ColumnType<Forms, string, string>;
+type NullableJsonForms = ColumnType<Forms | null, string | null, string | null>;
+type UpdatedAt = ColumnType<Date, Date | undefined, Date>;
+
+export interface NamespacesTable {
+  id: Generated<string>;
+  projectId: string;
+  name: string;
+  createdAt: CreatedAt;
+}
+
+export interface KeysTable {
+  id: Generated<string>;
+  namespaceId: string;
+  path: string[];
+  plural: ColumnType<boolean, boolean | undefined, boolean>;
+  sourceForms: JsonForms;
+  sourceHash: string;
+  description: string | null;
+  createdAt: CreatedAt;
+  updatedAt: UpdatedAt;
+}
+
+export interface TranslationsTable {
+  id: Generated<string>;
+  keyId: string;
+  locale: string;
+  forms: NullableJsonForms;
+  status: TranslationStatus;
+  origin: TranslationOrigin | null;
+  translatedFromHash: string | null;
+  revision: number;
+  updatedAt: UpdatedAt;
+}
+
+export interface TranslationRevisionsTable {
+  id: Generated<string>;
+  translationId: string;
+  revision: number;
+  kind: RevisionKind;
+  forms: NullableJsonForms;
+  status: TranslationStatus;
+  origin: TranslationOrigin | null;
+  reason: string | null;
+  actorKind: ActorKind;
+  actorUserId: string | null;
+  actorTokenId: string | null;
+  actorName: string;
+  createdAt: CreatedAt;
+}
+
 export interface Database {
   organizations: OrganizationsTable;
   projects: ProjectsTable;
@@ -64,4 +135,8 @@ export interface Database {
   memberships: MembershipsTable;
   apiTokens: ApiTokensTable;
   userSessions: UserSessionsTable;
+  namespaces: NamespacesTable;
+  keys: KeysTable;
+  translations: TranslationsTable;
+  translationRevisions: TranslationRevisionsTable;
 }

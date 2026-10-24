@@ -12,6 +12,8 @@ export class ForbiddenError extends Error {
 
 export class ConflictError extends Error {}
 
+export class ValidationError extends Error {}
+
 export class UnauthenticatedError extends Error {
   constructor(message = "Authentication required") {
     super(message);
