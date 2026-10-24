@@ -6,7 +6,7 @@ import { ZodError } from "zod";
 import { withDatabase } from "./connection";
 import { serveWeb } from "./web";
 
-const USAGE = `Usage: cotolk <command>
+const USAGE = `Usage: cotolk-server <command>
 
 Commands:
   web                                         Migrate the database and serve the web app

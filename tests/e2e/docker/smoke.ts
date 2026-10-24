@@ -47,7 +47,7 @@ function createUser(email: string, password: string) {
       "exec",
       "-T",
       "web",
-      "cotolk",
+      "cotolk-server",
       "admin",
       "create-user",
       "--email",

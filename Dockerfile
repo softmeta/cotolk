@@ -11,9 +11,9 @@ ENV NODE_ENV=production PORT=3000 HOST=0.0.0.0
 WORKDIR /app
 COPY --from=build /app /app
 COPY --from=build /source/apps/web/dist /app/dist
-RUN printf '#!/bin/sh\nexec node --import tsx /app/server/cli.ts "$@"\n' > /usr/local/bin/cotolk \
-  && chmod +x /usr/local/bin/cotolk
+RUN printf '#!/bin/sh\nexec node --import tsx /app/server/cli.ts "$@"\n' > /usr/local/bin/cotolk-server \
+  && chmod +x /usr/local/bin/cotolk-server
 USER node
 EXPOSE 3000
-ENTRYPOINT ["cotolk"]
+ENTRYPOINT ["cotolk-server"]
 CMD ["web"]

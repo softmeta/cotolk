@@ -38,5 +38,5 @@ test("an administrator creates the first account from the command line", async (
 test("an unknown command prints usage and fails", async () => {
   const result = await runCotolk(["serve"]);
   expect(result.code).toBe(1);
-  expect(result.stderr).toContain("Usage: cotolk");
+  expect(result.stderr).toContain("Usage: cotolk-server");
 });
