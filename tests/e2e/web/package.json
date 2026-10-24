@@ -1,0 +1,23 @@
+{
+  "name": "@cotolk/e2e-web",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "pnpm --filter @cotolk/web build && playwright test",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@cotolk/core": "workspace:*",
+    "@cotolk/db": "workspace:*",
+    "@cotolk/web": "workspace:*"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "0.5.11",
+    "@electric-sql/pglite-socket": "0.2.14",
+    "@playwright/test": "1.64.1",
+    "@types/node": "^24.19.2",
+    "@types/pg": "8.23.1",
+    "kysely": "0.29.7",
+    "pg": "8.23.1"
+  }
+}

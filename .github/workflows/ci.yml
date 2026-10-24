@@ -34,5 +34,7 @@ jobs:
         run: pnpm lint
       - name: Typecheck
         run: pnpm typecheck
+      - name: Install browser
+        run: pnpm --filter @cotolk/e2e-web exec playwright install --with-deps --only-shell chromium
       - name: Test
         run: pnpm test
