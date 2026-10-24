@@ -8,7 +8,7 @@ import { migrateTo } from "@cotolk/db/internal/migrate";
 import { PGlite } from "@electric-sql/pglite";
 import { type Kysely, sql } from "kysely";
 import { PGliteDialect } from "kysely-pglite-dialect";
-import { afterAll, afterEach, describe, expect, it } from "vitest";
+import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
 
 const ALL_MIGRATIONS = [
   "0001_organizations_and_projects",
@@ -16,11 +16,14 @@ const ALL_MIGRATIONS = [
 ];
 
 const openDatabases: Kysely<Database>[] = [];
-let emptyTemplate: Promise<PGlite> | undefined;
+let emptyTemplate: PGlite;
+
+beforeAll(async () => {
+  emptyTemplate = await PGlite.create();
+});
 
 async function openDatabase() {
-  emptyTemplate ??= PGlite.create();
-  const instance = (await (await emptyTemplate).clone()) as PGlite;
+  const instance = (await emptyTemplate.clone()) as PGlite;
   const db = createDatabase(new PGliteDialect(instance));
   openDatabases.push(db);
   return db;
@@ -31,7 +34,7 @@ afterEach(async () => {
 });
 
 afterAll(async () => {
-  await (await emptyTemplate)?.close();
+  await emptyTemplate.close();
 });
 
 async function appliedMigrations(db: Kysely<Database>) {
