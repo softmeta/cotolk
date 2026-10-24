@@ -1,0 +1,2 @@
+* text=auto eol=lf
+tests/unit/formats/fixtures/crlf-tabs.json -text
