@@ -17,7 +17,7 @@
           "options": {
             "patterns": [
               {
-                "group": ["@lingora/*/internal/*"],
+                "group": ["@cotolk/*/internal/*"],
                 "message": "Internal subpaths exist only for tests in tests/unit; import the package public entry."
               }
             ]

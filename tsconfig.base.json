@@ -10,8 +10,8 @@
     "verbatimModuleSyntax": true,
     "skipLibCheck": true,
     "paths": {
-      "@lingora/formats": ["./packages/formats/src/index.ts"],
-      "@lingora/formats/internal/*": ["./packages/formats/src/*"]
+      "@cotolk/formats": ["./packages/formats/src/index.ts"],
+      "@cotolk/formats/internal/*": ["./packages/formats/src/*"]
     }
   }
 }

@@ -1,6 +1,6 @@
-# Lingora
+# Cotolk
 
-Lingora is an agent-native localization platform: agents translate, people review, and the repository stays the source of truth for source strings. The same codebase ships self-hosted and as SaaS.
+Cotolk is an agent-native localization platform: agents translate, people review, and the repository stays the source of truth for source strings. The same codebase ships self-hosted and as SaaS.
 
 ## Working principles
 
@@ -14,7 +14,7 @@ Lingora is an agent-native localization platform: agents translate, people revie
 ## Layout
 
 - `packages/<name>` holds libraries, each with an `index.ts` public entry; `apps/<name>` holds deployable apps.
-- Tests live in `tests/unit/<package>` as their own workspace packages (`@lingora/unit-<package>`), importing code through the package public entry or the `@lingora/<package>/internal/<path>` subentry. Production code never imports `internal` subentries; biome enforces it.
+- Tests live in `tests/unit/<package>` as their own workspace packages (`@cotolk/unit-<package>`), importing code through the package public entry or the `@cotolk/<package>/internal/<path>` subentry. Production code never imports `internal` subentries; biome enforces it.
 - Keep fixtures synthetic, fixed, and committed next to the tests that use them. Never copy customer or real product data into fixtures.
 
 ## Verification

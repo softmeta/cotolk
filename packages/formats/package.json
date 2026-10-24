@@ -1,5 +1,5 @@
 {
-  "name": "@lingora/formats",
+  "name": "@cotolk/formats",
   "private": true,
   "type": "module",
   "exports": {

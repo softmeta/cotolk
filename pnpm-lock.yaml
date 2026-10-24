@@ -177,7 +177,7 @@ importers:
 
   tests/unit/formats:
     dependencies:
-      '@lingora/formats':
+      '@cotolk/formats':
         specifier: workspace:*
         version: link:../../../packages/formats
     devDependencies:

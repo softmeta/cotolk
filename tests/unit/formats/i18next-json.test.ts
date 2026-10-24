@@ -6,7 +6,7 @@ import {
   parseI18nextJson,
   pluralCategoriesFor,
   serializeI18nextJson,
-} from "@lingora/formats";
+} from "@cotolk/formats";
 import { describe, expect, it } from "vitest";
 
 const fixturesDir = path.join(import.meta.dirname, "fixtures");

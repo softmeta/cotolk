@@ -1,5 +1,5 @@
 {
-  "name": "@lingora/unit-formats",
+  "name": "@cotolk/unit-formats",
   "private": true,
   "type": "module",
   "scripts": {
@@ -7,7 +7,7 @@
     "typecheck": "tsc -p tsconfig.json"
   },
   "dependencies": {
-    "@lingora/formats": "workspace:*"
+    "@cotolk/formats": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^24.19.2",
