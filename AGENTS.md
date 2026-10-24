@@ -26,6 +26,15 @@ PostgreSQL is the only database. `@cotolk/db` owns the schema and its forward-on
 - Cover each migration that changes existing data with a test in `tests/unit/db` that migrates to the previous migration, seeds rows, migrates to the latest, and asserts the rows survive.
 - Tests run on PGlite (`@electric-sql/pglite`), so they need no database server on any platform.
 
+## Tenancy and access
+
+`@cotolk/core` holds every product operation as a function of `(db, principal, ...)`; HTTP routes, server functions, the CLI, and MCP call it and never query tenant data themselves.
+- Resolve the organization through `accessOrganization` or `accessOrganizationAsOwner` first, and scope every later query by its id.
+- Report another tenant's organization as not found, never as forbidden, so existence does not leak.
+- API tokens belong to one organization and act as a member: they work on projects but never manage tokens, organizations, or deletions.
+- Store only SHA-256 hashes of tokens and argon2id hashes of passwords; return a token secret once, at creation.
+- Add every new operation to `tests/unit/core/tenancy.test.ts`, which asserts another organization's owner and token are refused and leave every table unchanged.
+
 ## Verification
 
 Run `pnpm lint`, `pnpm typecheck`, and `pnpm test` before pushing. Use TDD for format adapters, quality checks, and other pure logic; a format adapter must round-trip its fixtures byte for byte.

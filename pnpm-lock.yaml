@@ -173,6 +173,22 @@ importers:
         specifier: 7.0.2
         version: 7.0.2
 
+  packages/core:
+    dependencies:
+      '@cotolk/db':
+        specifier: workspace:*
+        version: link:../db
+      kysely:
+        specifier: 0.29.7
+        version: 0.29.7
+      zod:
+        specifier: 4.6.7
+        version: 4.6.7
+    devDependencies:
+      '@types/node':
+        specifier: ^24.19.2
+        version: 24.19.2
+
   packages/db:
     dependencies:
       kysely:
@@ -180,6 +196,31 @@ importers:
         version: 0.29.7
 
   packages/formats: {}
+
+  tests/unit/core:
+    dependencies:
+      '@cotolk/core':
+        specifier: workspace:*
+        version: link:../../../packages/core
+      '@cotolk/db':
+        specifier: workspace:*
+        version: link:../../../packages/db
+    devDependencies:
+      '@electric-sql/pglite':
+        specifier: 0.5.11
+        version: 0.5.11
+      '@types/node':
+        specifier: ^24.19.2
+        version: 24.19.2
+      kysely:
+        specifier: 0.29.7
+        version: 0.29.7
+      kysely-pglite-dialect:
+        specifier: 1.4.0
+        version: 1.4.0(@electric-sql/pglite@0.5.11)(kysely@0.29.7)
+      vitest:
+        specifier: 5.0.5
+        version: 5.0.5(@types/node@24.19.2)(vite@8.3.5(@types/node@24.19.2))
 
   tests/unit/db:
     dependencies:
@@ -812,6 +853,9 @@ packages:
     engines: {node: '>=20.11'}
     hasBin: true
 
+  zod@4.6.7:
+    resolution: {integrity: sha512-g8W2D2kU6a8untc053fX1uVBKzM7yqAxW/3zwk83+6RyF2+SKOuV+c0wBDhUwzV1PaGapmZH+rmcUzPf+3CGwg==}
+
 snapshots:
 
   '@biomejs/biome@2.6.2':
@@ -1188,3 +1232,5 @@ snapshots:
       - msw
 
   why-is-node-running@3.2.1: {}
+
+  zod@4.6.7: {}
