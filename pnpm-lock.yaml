@@ -255,6 +255,12 @@ importers:
 
   packages/formats: {}
 
+  tests/e2e/docker:
+    devDependencies:
+      '@types/node':
+        specifier: ^24.19.2
+        version: 24.19.2
+
   tests/e2e/web:
     dependencies:
       '@cotolk/core':

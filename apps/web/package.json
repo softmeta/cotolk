@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
-    "start": "node --import tsx server/main.ts",
+    "start": "node --import tsx server/cli.ts web",
     "typecheck": "tsc -p tsconfig.json"
   },
   "dependencies": {

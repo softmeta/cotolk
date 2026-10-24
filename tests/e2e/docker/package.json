@@ -1,0 +1,12 @@
+{
+  "name": "@cotolk/e2e-docker",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "smoke": "node smoke.ts",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.2"
+  }
+}

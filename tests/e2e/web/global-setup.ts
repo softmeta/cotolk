@@ -1,5 +1,4 @@
 import { type ChildProcess, spawn } from "node:child_process";
-import { createRequire } from "node:module";
 import { createServer } from "node:net";
 import path from "node:path";
 import {
@@ -16,11 +15,7 @@ import { PGlite } from "@electric-sql/pglite";
 import { PGLiteSocketServer } from "@electric-sql/pglite-socket";
 import { PostgresDialect } from "kysely";
 import pg from "pg";
-import { ADA, GRACE, PASSWORD } from "./fixture";
-
-const webDir = path.dirname(
-  createRequire(import.meta.url).resolve("@cotolk/web/package.json"),
-);
+import { ADA, GRACE, PASSWORD, webDir } from "./fixture";
 
 function freePort() {
   return new Promise<number>((resolve, reject) => {
@@ -110,7 +105,7 @@ export default async function globalSetup() {
   const url = `http://127.0.0.1:${webPort}`;
   const web = spawn(
     process.execPath,
-    ["--import", "tsx", path.join("server", "main.ts")],
+    ["--import", "tsx", path.join("server", "cli.ts"), "web"],
     {
       cwd: webDir,
       env: {
