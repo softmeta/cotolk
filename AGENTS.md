@@ -17,6 +17,15 @@ Cotolk is an agent-native localization platform: agents translate, people review
 - Tests live in `tests/unit/<package>` as their own workspace packages (`@cotolk/unit-<package>`), importing code through the package public entry or the `@cotolk/<package>/internal/<path>` subentry. Production code never imports `internal` subentries; biome enforces it.
 - Keep fixtures synthetic, fixed, and committed next to the tests that use them. Never copy customer or real product data into fixtures.
 
+## Data compatibility
+
+PostgreSQL is the only database. `@cotolk/db` owns the schema and its forward-only migrations.
+- Add a migration as the next numbered file in `packages/db/src/migrations` and register it in `MIGRATIONS`; never edit or remove a released one, and write no `down`.
+- Keep migrations value-preserving: add and backfill columns instead of renaming or dropping ones that hold user data.
+- A database that records a migration this build does not know was written by a newer release; `migrateToLatest` refuses it without touching it.
+- Cover each migration that changes existing data with a test in `tests/unit/db` that migrates to the previous migration, seeds rows, migrates to the latest, and asserts the rows survive.
+- Tests run on PGlite (`@electric-sql/pglite`), so they need no database server on any platform.
+
 ## Verification
 
 Run `pnpm lint`, `pnpm typecheck`, and `pnpm test` before pushing. Use TDD for format adapters, quality checks, and other pure logic; a format adapter must round-trip its fixtures byte for byte.
