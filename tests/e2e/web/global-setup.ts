@@ -129,6 +129,5 @@ export default async function globalSetup() {
       await exited;
     }
     await socket.stop();
-    await database.close();
   };
 }
