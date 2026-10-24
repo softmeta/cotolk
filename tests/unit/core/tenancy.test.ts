@@ -7,11 +7,16 @@ import {
   getOrganization,
   getProject,
   listApiTokens,
+  listKeys,
   listOrganizations,
   listProjects,
+  listRevisions,
   NotFoundError,
   type Principal,
+  putKeys,
+  reviewTranslation,
   revokeApiToken,
+  submitTranslation,
   updateOrganization,
   updateProject,
 } from "@cotolk/core";
@@ -27,6 +32,7 @@ interface World {
   db: Kysely<Database>;
   acme: Tenant;
   globex: Tenant;
+  acmeKeyId: string;
 }
 
 const TABLES = [
@@ -36,6 +42,10 @@ const TABLES = [
   "memberships",
   "apiTokens",
   "userSessions",
+  "namespaces",
+  "keys",
+  "translations",
+  "translationRevisions",
 ] as const;
 
 async function snapshot(db: Kysely<Database>) {
@@ -51,7 +61,12 @@ async function snapshot(db: Kysely<Database>) {
   return Object.fromEntries(TABLES.map((table, i) => [table, tables[i]]));
 }
 
-const shop = { slug: "shop", name: "Shop", sourceLocale: "en-US" };
+const shop = {
+  slug: "shop",
+  name: "Shop",
+  sourceLocale: "en-US",
+  targetLocales: ["es"],
+};
 
 type Operation = (world: World, intruder: Principal) => Promise<unknown>;
 
@@ -72,6 +87,22 @@ const AGAINST_VICTIM_ORGANIZATION: Record<string, Operation> = {
     createApiToken(db, p, "acme", { name: "Planted" }),
   revokeApiToken: ({ db, acme }, p) =>
     revokeApiToken(db, p, "acme", acme.tokenId),
+  putKeys: ({ db }, p) =>
+    putKeys(db, p, "acme", "shop", {
+      namespace: "common",
+      messages: [{ path: ["greeting"], value: "Planted" }],
+    }),
+  listKeys: ({ db }, p) => listKeys(db, p, "acme", "shop", "es"),
+  submitTranslation: ({ db, acmeKeyId }, p) =>
+    submitTranslation(db, p, "acme", "shop", acmeKeyId, "es", {
+      forms: { other: "Planted" },
+    }),
+  reviewTranslation: ({ db, acmeKeyId }, p) =>
+    reviewTranslation(db, p, "acme", "shop", acmeKeyId, "es", {
+      decision: "reject",
+    }),
+  listRevisions: ({ db, acmeKeyId }, p) =>
+    listRevisions(db, p, "acme", "shop", acmeKeyId, "es"),
 };
 
 const THROUGH_OWN_ORGANIZATION: Record<string, Operation> = {
@@ -83,6 +114,16 @@ const THROUGH_OWN_ORGANIZATION: Record<string, Operation> = {
     deleteProject(db, p, "globex", "acme-only"),
   "revokeApiToken of the victim's token": ({ db, acme }, p) =>
     revokeApiToken(db, p, "globex", acme.tokenId),
+  "submitTranslation of the victim's key": ({ db, acmeKeyId }, p) =>
+    submitTranslation(db, p, "globex", "shop", acmeKeyId, "es", {
+      forms: { other: "Planted" },
+    }),
+  "reviewTranslation of the victim's key": ({ db, acmeKeyId }, p) =>
+    reviewTranslation(db, p, "globex", "shop", acmeKeyId, "es", {
+      decision: "reject",
+    }),
+  "listRevisions of the victim's key": ({ db, acmeKeyId }, p) =>
+    listRevisions(db, p, "globex", "shop", acmeKeyId, "es"),
 };
 
 function refusedWithoutLeaking(error: unknown) {
@@ -101,7 +142,17 @@ describe("tenant isolation", () => {
       ...shop,
       slug: "acme-only",
     });
-    world = { db, acme, globex };
+    await createProject(db, globex.owner, "globex", shop);
+    await putKeys(db, acme.owner, "acme", "shop", {
+      namespace: "common",
+      messages: [{ path: ["greeting"], value: "Hello" }],
+    });
+    const [key] = await listKeys(db, acme.owner, "acme", "shop", "es");
+    if (!key) throw new Error("fixture key missing");
+    await submitTranslation(db, acme.owner, "acme", "shop", key.id, "es", {
+      forms: { other: "Hola" },
+    });
+    world = { db, acme, globex, acmeKeyId: key.id };
   });
 
   for (const intruderKind of ["owner", "token"] as const) {
