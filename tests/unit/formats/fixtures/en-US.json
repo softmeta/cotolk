@@ -1,0 +1,18 @@
+{
+  "devices": {
+    "empty": "",
+    "pair": {
+      "expires": "Expires {{time}}",
+      "title": "Pair a device",
+      "ttlMinutes_one": "{{count}} minute",
+      "ttlMinutes_other": "{{count}} minutes"
+    }
+  },
+  "invite": "Read the <1>guide</1> before inviting <strong>{{name}}</strong>.",
+  "place_ordinal_few": "{{count}}rd place",
+  "place_ordinal_one": "{{count}}st place",
+  "place_ordinal_other": "{{count}}th place",
+  "place_ordinal_two": "{{count}}nd place",
+  "quote": "Say \"hi\" \\ — ✓ 😀",
+  "step_one": "First step"
+}

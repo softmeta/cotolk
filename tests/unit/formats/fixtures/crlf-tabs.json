@@ -1,0 +1,7 @@
+{
+	"menu": {
+		"open": "Open",
+		"recent_one": "{{count}} recent file",
+		"recent_other": "{{count}} recent files"
+	}
+}
