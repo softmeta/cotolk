@@ -1,0 +1,16 @@
+{
+  "name": "@lingora/unit-formats",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@lingora/formats": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "vitest": "5.0.5"
+  }
+}

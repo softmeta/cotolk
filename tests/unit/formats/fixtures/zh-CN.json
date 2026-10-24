@@ -1,0 +1,13 @@
+{
+  "devices": {
+    "empty": "",
+    "pair": {
+      "expires": "{{time}} 过期",
+      "title": "配对设备",
+      "ttlMinutes_one": "{{count}} 分钟",
+      "ttlMinutes_other": "{{count}} 分钟"
+    }
+  },
+  "files_other": "{{count}} 个文件",
+  "invite": "邀请 <strong>{{name}}</strong> 前请先阅读<1>指南</1>。"
+}
