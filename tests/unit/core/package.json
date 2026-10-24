@@ -1,0 +1,20 @@
+{
+  "name": "@cotolk/unit-core",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@cotolk/core": "workspace:*",
+    "@cotolk/db": "workspace:*"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "0.5.11",
+    "@types/node": "^24.19.2",
+    "kysely": "0.29.7",
+    "kysely-pglite-dialect": "1.4.0",
+    "vitest": "5.0.5"
+  }
+}

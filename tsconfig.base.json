@@ -13,7 +13,9 @@
       "@cotolk/formats": ["./packages/formats/src/index.ts"],
       "@cotolk/formats/internal/*": ["./packages/formats/src/*"],
       "@cotolk/db": ["./packages/db/src/index.ts"],
-      "@cotolk/db/internal/*": ["./packages/db/src/*"]
+      "@cotolk/db/internal/*": ["./packages/db/src/*"],
+      "@cotolk/core": ["./packages/core/src/index.ts"],
+      "@cotolk/core/internal/*": ["./packages/core/src/*"]
     }
   }
 }

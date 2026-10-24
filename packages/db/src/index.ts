@@ -4,4 +4,13 @@ export {
   LATEST_MIGRATION,
   migrateToLatest,
 } from "./migrate";
-export type { Database, OrganizationsTable, ProjectsTable } from "./schema";
+export type {
+  ApiTokensTable,
+  Database,
+  MembershipRole,
+  MembershipsTable,
+  OrganizationsTable,
+  ProjectsTable,
+  UserSessionsTable,
+  UsersTable,
+} from "./schema";
